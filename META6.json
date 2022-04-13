@@ -1,0 +1,25 @@
+{
+  "auth": "zef:massa",
+  "authors": [
+    "Humberto Massa"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "parse <.netrc> files",
+  "license": "Artistic-2.0",
+  "name": "Net::NetRC",
+  "perl": "6.d",
+  "provides": {
+    "Net::NetRC": "lib/Net/NetRC.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "",
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
+}

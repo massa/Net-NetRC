@@ -1,0 +1,41 @@
+use Test;
+use Test::META;
+use Net::NetRC;
+
+meta-ok;
+
+my $netrc-fake = q:to/ENDNETRC/;
+
+# comment, but there is white lines above
+# a while line below here
+
+   # another comment here, indented
+
+   machine simmetric
+
+default login anonymous    # ooh, a comment!
+password anonymous@mailinator.com
+
+machine example.org
+account bicho
+# account nobicho
+login massa
+password not-my-real-pass
+
+
+
+ENDNETRC
+
+my $netrc;
+lives-ok {
+   $netrc = netrc $netrc-fake;
+};
+ok $netrc.defined;
+
+is-deeply $netrc<google.com>, { login => 'anonymous', password => 'anonymous@mailinator.com' };
+is $netrc<example.org><account>, 'bicho';
+is-deeply $netrc<simmetric>, {};
+
+done-testing;
+
+
