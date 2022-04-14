@@ -4,7 +4,7 @@ unit module Net::NetRC;
 
 =head1 NAME
 
-Net::NetRC - parse <.netrc> files
+Net::NetRC - parse `.netrc` files
 
 =head1 SYNOPSIS
 
@@ -12,11 +12,23 @@ Net::NetRC - parse <.netrc> files
 
 use Net::NetRC;
 
+my $x = netrc;
+
+say $x<google.com><login>;
+
+my $y = netrc 'machine azul.example.com login massa password j4k3';
+
+say $y<azul.com><password>;
+
+my $z = netrc '/home/myname/.netrc.alternate';
+
 =end code
 
 =head1 DESCRIPTION
 
-Net::NetRC is ...
+Net::NetRC is a basic parser for the `.netrc` file format.
+
+I made it as a simple way of obtaining logins and passwords for many other projects.
 
 =head1 AUTHOR
 
@@ -24,7 +36,7 @@ Humberto Massa <humbertomassa@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2022 Humberto Massa
+Copyright © 2022 Humberto Massa
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
