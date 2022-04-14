@@ -28,13 +28,22 @@ ENDNETRC
 
 my $netrc;
 lives-ok {
-   $netrc = netrc $netrc-fake;
-};
+   $netrc = netrc $netrc-fake
+}
 ok $netrc.defined;
 
 is-deeply $netrc<google.com>, { login => 'anonymous', password => 'anonymous@mailinator.com' };
 is $netrc<example.org><account>, 'bicho';
 is-deeply $netrc<simmetric>, {};
+
+lives-ok {
+   my %hash = netrc $netrc-fake;
+   nok %hash<google.com>
+}
+
+dies-ok {
+   my $x = netrc '/unexistent/file'.IO
+}
 
 done-testing;
 

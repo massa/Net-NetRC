@@ -30,8 +30,6 @@ This library is free software; you can redistribute it and/or modify it under th
 
 =end pod
 
-use Grammar::Tracer;
-
 grammar NetRC {
     token ws { <!ww> \s*! [ '#' \s*! <content> \n \s* ]* }
     token content { \N* }
@@ -75,11 +73,12 @@ class Actions {
 }
 
 multi sub netrc() is export {
-    state $netrc = netrc "%*ENV<HOME>/.netrc".IO;
-    $netrc
+    state $netrc = netrc "%*ENV<HOME>/.netrc".IO
 }
 
-multi sub netrc(IO() $handle) is export { netrc $handle.slurp }
+multi sub netrc(IO() $handle) is export {
+    netrc $handle.slurp
+}
 
 multi sub netrc(Str() $s) is export {
     return netrc $s.IO if $s.IO.r;
