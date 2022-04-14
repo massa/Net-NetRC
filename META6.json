@@ -6,6 +6,7 @@
   "build-depends": [
   ],
   "depends": [
+    "Hash::Agnostic"
   ],
   "description": "parse `.netrc` files",
   "license": "Artistic-2.0",
