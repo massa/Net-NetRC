@@ -1,6 +1,7 @@
 Revision history for Net-NetRC
 
 {{$NEXT}}
+    - Github link was mangled
 
 0.0.2  2022-04-14T18:26:27-03:00
     - Slightly improved testing and documentation

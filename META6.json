@@ -17,11 +17,11 @@
   },
   "resources": [
   ],
-  "source-url": "github:massa/Net-NetRC",
+  "source-url": "https://github.com/massa/Net-NetRC",
   "tags": [
   ],
   "test-depends": [
     "Test::META"
   ],
-  "version": "0.0.2"
+  "version": "0.0.3"
 }
