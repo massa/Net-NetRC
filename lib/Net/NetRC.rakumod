@@ -90,7 +90,7 @@ my class Actions {
 }
 
 multi sub netrc() is export {
-    state $netrc = netrc "%*ENV<HOME>/.netrc".IO
+    state $netrc = netrc $*HOME.add: '.netrc'
 }
 
 multi sub netrc(IO() $handle) is export {
