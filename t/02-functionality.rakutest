@@ -1,0 +1,71 @@
+use Test;
+
+my $netrc-fake = q:to/ENDNETRC/;
+
+# comment, but there is white lines above
+# a while line below here
+
+   # another comment here, indented
+   #
+   # now a global macdef
+   macdef global
+   test
+   test
+   # - more content
+   # test
+   #
+
+   machine simmetric
+
+default login anonymous    # ooh, a comment!
+password anonymous@mailinator.com
+macdef login
+teste
+vai
+
+# faz parte do macdef
+
+macdef logout
+#--end macdef
+#
+#-- macdef ignored
+
+machine setup.org
+account vai # login massa
+
+machine example.org
+account bicho
+# account nobicho
+login massa
+password not-my-real-pass
+
+
+
+ENDNETRC
+
+use Net::NetRC;
+
+plan 8;
+
+my $netrc;
+lives-ok {
+   $netrc = netrc $netrc-fake
+}
+ok $netrc.defined;
+
+is-deeply $netrc<google.com>, { login => 'anonymous', password => 'anonymous@mailinator.com' };
+is $netrc<example.org><account>, 'bicho';
+is-deeply $netrc<simmetric>, {};
+
+lives-ok {
+   my %hash = netrc $netrc-fake;
+   nok %hash<google.com>
+}
+
+dies-ok {
+   my $x = netrc '/unexistent/file'.IO
+}
+
+done-testing;
+
+

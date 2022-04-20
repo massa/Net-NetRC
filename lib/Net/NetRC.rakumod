@@ -42,23 +42,28 @@ This library is free software; you can redistribute it and/or modify it under th
 
 =end pod
 
-grammar NetRC {
-    token ws { <!ww> \s*! [ '#' \s*! <content> \n \s* ]* }
-    token content { \N* }
+my grammar NetRC {
+    token TOP { ^ <ws> <macdef>*? [ <machine-definition> <ws> ]* $ }
+
     token machine-definition {
-        [ <default-def> | <machine-def> ]
-        [ <login-def> | <password-def> | <account-def> ]*
+        [ <default-def> || <machine-def> ]
+        [ <login-def> || <passwd-def> || <account-def> || <macdef> ]*
     }
+
     rule default-def { default }
     rule machine-def { machine (\S*) }
-    rule login-def { login (\S+) }
-    rule password-def { password (\S+) }
+    rule login-def   { login (\S+) }
+    rule passwd-def  { password (\S+) }
     rule account-def { account (\S+) }
-    token rest { .* }
-    token TOP { <ws> [ <machine-definition> <ws> ]* }
+    rule macdef      { macdef (\S+) <macline>* }
+
+    token macline    { <!before [ default || machine || macdef ]> <content> \n \s* }
+
+    token ws         { <!ww> \s*! [ '#' \s*! <content> \n \s* ]* }
+    token content    { \N* }
 }
 
-class Actions {
+my class Actions {
     use Hash::Agnostic;
     my class DefaultableHash does Hash::Agnostic {
         has %!storage;
@@ -71,7 +76,7 @@ class Actions {
     method TOP($/) {
         my @x = $/<machine-definition>.map({
             .<default-def machine-def>.Slip,
-            .<login-def password-def account-def>».first(:end).Slip
+            .<login-def passwd-def account-def>».first(:end).Slip
         })».made».grep(*.so)».Hash;
         my DefaultableHash $h .= new;
         $h{ .<name> :delete } = $_ for @x;
@@ -80,7 +85,7 @@ class Actions {
     method default-def($/)  { make ( name => ''         ) }
     method machine-def($/)  { make ( name => ~$/[0]     ) }
     method login-def($/)    { make ( login => ~$/[0]    ) }
-    method password-def($/) { make ( password => ~$/[0] ) }
+    method passwd-def($/)   { make ( password => ~$/[0] ) }
     method account-def($/)  { make ( account => ~$/[0]  ) }
 }
 
