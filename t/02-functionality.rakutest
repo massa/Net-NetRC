@@ -26,9 +26,15 @@ vai
 # faz parte do macdef
 
 macdef logout
-#--end macdef
+#--end macdef (?)
 #
-#-- macdef ignored
+something or
+#-- macdef ignored (or is it?)
+#
+something
+# or other
+macdef logout
+logout again
 
 machine setup.org
 account vai # login massa
@@ -38,6 +44,8 @@ account bicho
 # account nobicho
 login massa
 password not-my-real-pass
+macdef autophage
+eat my shorts
 
 
 
@@ -45,7 +53,7 @@ ENDNETRC
 
 use Net::NetRC;
 
-plan 8;
+plan 9;
 
 my $netrc;
 lives-ok {
@@ -53,8 +61,14 @@ lives-ok {
 }
 ok $netrc.defined;
 
-is-deeply $netrc<google.com>, { login => 'anonymous', password => 'anonymous@mailinator.com' };
+is-deeply $netrc<google.com>, {
+   login => 'anonymous',
+   password => 'anonymous@mailinator.com',
+   'macdef:logout' => [('something or', 'something'), ('logout again',)],
+   'macdef:login' => ('teste', 'vai'),
+};
 is $netrc<example.org><account>, 'bicho';
+is $netrc<example.org><password>, 'not-my-real-pass';
 is-deeply $netrc<simmetric>, {};
 
 lives-ok {

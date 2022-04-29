@@ -2,6 +2,9 @@ Revision history for Net-NetRC
 
 {{$NEXT}}
 
+0.0.6  2022-04-29T07:35:29-03:00
+    - Fix `macdef` parsing and give them out in the result
+
 0.0.5  2022-04-20T11:26:03-03:00
     - Cleanup of bad %*ENV use
 
