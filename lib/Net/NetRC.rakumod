@@ -36,9 +36,9 @@ Humberto Massa <humbertomassa@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright © 2022 Humberto Massa
+Copyright © 2022 - 2024 Humberto Massa
 
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
+This library is free software; you can redistribute it and/or modify it under either the Artistic License 2.0 or the LGPL v3.0, at your convenience.
 
 =end pod
 
