@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/massa/Net-NetRC/actions/workflows/test.yml/badge.svg)](https://github.com/massa/Net-NetRC/actions)
+[![Actions Status](https://github.com/massa/Net-NetRC/actions/workflows/linux.yml/badge.svg)](https://github.com/massa/Net-NetRC/actions) [![Actions Status](https://github.com/massa/Net-NetRC/actions/workflows/macos.yml/badge.svg)](https://github.com/massa/Net-NetRC/actions) [![Actions Status](https://github.com/massa/Net-NetRC/actions/workflows/windows.yml/badge.svg)](https://github.com/massa/Net-NetRC/actions)
 
 NAME
 ====
